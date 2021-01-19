@@ -1,0 +1,26 @@
+Package: swapdata
+Type: Package
+Title: Southwest Asian Palaeoarchaeology Data
+Version: 0.1.0.9000
+Authors@R: person("Joe", "Roe", email = "joe@joeroe.io",
+  role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1011-1244"))
+Description: A collection of archaeological datasets and tools related to the 
+    prehistory of Southwest Asia.
+License: MIT + file LICENSE
+URL: https://github.com/joeroe/swapdata
+BugReports: https://github.com/joeroe/swapdata/issues
+Language: en-GB
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 2.10)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    magrittr,
+    rlang,
+    dplyr,
+    tibble,
+    stringr,
+    glue,
+    fuzzyjoin
