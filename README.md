@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build status](https://github.com/joeroe/swapdata/workflows/R-CMD-check/badge.svg)](https://github.com/joeroe/swapdata/actions)
 <!-- badges: end -->
 
 A collection of archaeological datasets and tools related to the prehistory of Southwest Asia.
