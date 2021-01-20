@@ -23,4 +23,7 @@ Imports:
     tibble,
     stringr,
     glue,
-    fuzzyjoin
+    fuzzyjoin,
+    checkmate,
+    purrr,
+    utils

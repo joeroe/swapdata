@@ -89,3 +89,159 @@ swap_control_site_name <- function(x, quiet = FALSE) {
   # Return
   dplyr::coalesce(y$canon, y$x)
 }
+
+#' Generate site codes
+#'
+#' Generates abbreviated site codes from their full names.
+#' The codes follow a set pattern designed to be predictable and probably (but
+#' not necessarily) unique.
+#'
+#' @param x Character vector of site names.
+#' @param max_length Numeric. Desired length of the generated codes. Must be
+#'  greater than 1. Default: `4`.
+#'
+#' @details
+#' `swap_site_code()` attempts to generate a fixed-width code consisting of the
+#' abbreviation site name and, if present in the site name, a numeric suffix.
+#' The pattern is determined by the value of the `max_length` parameter:
+#'
+#' * `max_length = 2`: `AB` or `A1`
+#' * `max_length = 3`: `ABC` or `AB1`
+#' * `max_length = 4`: `ABCD` or `AB01` (the default)
+#' * `max_length = 5`: `ABCDE` or `ABC01`
+#' * ...
+#'
+#' A fixed-width output isn't guaranteed, for example if the name of the site
+#' is shorter than `max_length`.
+#'
+#' As long as they are preceded by a space, Roman numerals up to XXXIX (39) are
+#' also recognised as a numeric suffix, and are converted to Arabic numbers.
+#'
+#' @return
+#' A character vector of site codes derived from `x`.
+#'
+#' @export
+#'
+#' @examples
+#' sites <- c("Çatalhöyük", "Chia Sabz", "Azraq 31", "Gilgal I", "Tell es-Sultan")
+#' swap_site_code(sites)
+swap_site_code <- function(x, max_length = 4) {
+  checkmate::assert_number(max_length, lower = 2)
+
+  if (max_length <= 3) {
+    suffix_length <- 1
+  }
+  else {
+    suffix_length <- 2
+  }
+
+  tibble::tibble(x = x) %>%
+    # Work in uppercase from now on
+    dplyr::mutate(
+      x = toupper(x)
+    ) %>%
+    # Numeric suffix
+    dplyr::mutate(
+      num_suffix = as.numeric(stringr::str_extract(.data$x, "[0-9]+$")),
+      roman_suffix = stringr::str_extract(.data$x, " [XVI]+$"),
+      roman_suffix = stringr::str_remove_all(.data$roman_suffix, " "),
+      roman_suffix = as.numeric(utils::as.roman(.data$roman_suffix)),
+      suffix = dplyr::coalesce(.data$num_suffix, .data$roman_suffix),
+      suffix = stringr::str_pad(.data$suffix, suffix_length, pad = "0"),
+      suffix = stringr::str_replace_na(.data$suffix, "")
+    ) %>%
+    # Abbreviated site name
+    dplyr::mutate(
+      root_length = dplyr::if_else(.data$suffix == "",
+                                   max_length,
+                                   max_length - suffix_length),
+      root = stringr::str_remove(.data$x, "( ?[0-9]+| [XVI]+)$"),
+      words = stringr::str_split(.data$root, stringr::boundary("word")),
+      short = purrr::map2_chr(.data$words, .data$root_length, swap_acronym)
+    ) %>%
+    # Concatenate
+    dplyr::mutate(
+      code = stringr::str_c(.data$short, .data$suffix)
+    ) %>%
+    dplyr::pull(.data$code)
+}
+
+swap_acronym <- function(x, max_length) {
+  # Remove articles (al, es, etc)
+  articles <- c("AL", "AT", "ATH", "AD", "ADH", "AR", "AZ", "AS", "ASH",
+                "EL", "ET", "ETH", "ED", "EDH", "ER", "EZ", "ES", "ESH",
+                "E", "I")
+  y <- x[!x %in% articles]
+
+  # Set abbreviations for common topographic elements
+  y <- dplyr::recode(y,
+                     TELL = "T",
+                     TEL = "T",
+                     TALL = "T",
+                     TAL = "T",
+                     TEPE = "T",
+                     CHOGA = "CH",
+                     CHOGHA = "CH",
+                     CHAGA = "CH",
+                     CHAGHA = "CH",
+                     HOYUK = "H",
+                     HÖYÜK = "H",
+                     JEBEL = "J",
+                     JABAL = "J",
+                     ABU = "AB",
+                     UMM = "UM",
+                     WADI = "W",
+                     CAVE = "C",
+                     TERRACE = "T",
+                     ROCKSHELTER = "S",
+                     NORTH = "N",
+                     SOUTH = "S",
+                     EAST = "E",
+                     WEST = "W",
+                     SURVEY = "S"
+                     )
+
+  # Determine desired length of abbreviations
+  if (length(y) >= max_length) {
+    y <- y[1:max_length]
+    abbr_lengths <- rep(1, length(y))
+  }
+  else {
+    abbr_lengths <- nchar(y)
+    i <- length(y)
+    while (sum(abbr_lengths) > max_length) {
+      if (abbr_lengths[i] != 1) {
+        abbr_lengths[i] <- abbr_lengths[i] - 1
+      }
+      i <- i - 1
+      if (i == 0) i <- length(y)
+    }
+  }
+
+  # Abbreviate individual words
+  y <- swap_abbr(y, abbr_lengths)
+
+  # Concatenate & return
+  paste0(y, collapse = "")
+}
+
+#' Abbreviate a single word in a site name
+#' @keywords internal
+#' @noRd
+swap_abbr <- function(x, max_length) {
+  # Remove H at the end of words
+  y <- stringr::str_remove(x, "H$")
+
+  # Remove vowels unless they're initial
+  # TODO: Turkish dotted/dotless I
+  # TODO: Francophone romanizations of Arabic
+  # TODO: Kurdish vowels
+  y <- stringr::str_remove_all(y, "(?<!^)[AEIOUÖÜY']")
+
+  # Check length
+  # TODO: Re-add vowels if underlength?
+  y <- stringr::str_sub(y, 1, max_length)
+  x[nchar(x) > max_length] <- y[nchar(x) > max_length]
+
+  return(x)
+}

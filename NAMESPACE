@@ -2,5 +2,6 @@
 
 export("%>%")
 export(swap_control_site_name)
+export(swap_site_code)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
