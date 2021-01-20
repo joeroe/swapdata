@@ -185,7 +185,7 @@ swap_acronym <- function(x, max_length) {
                      CHAGA = "CH",
                      CHAGHA = "CH",
                      HOYUK = "H",
-                     HÖYÜK = "H",
+                     "H\u00D6Y\u00DCK" = "H",
                      JEBEL = "J",
                      JABAL = "J",
                      ABU = "AB",
@@ -236,7 +236,7 @@ swap_abbr <- function(x, max_length) {
   # TODO: Turkish dotted/dotless I
   # TODO: Francophone romanizations of Arabic
   # TODO: Kurdish vowels
-  y <- stringr::str_remove_all(y, "(?<!^)[AEIOUÖÜY']")
+  y <- stringr::str_remove_all(y, "(?<!^)[AEIOU\u00D6\u00DCY']")
 
   # Check length
   # TODO: Re-add vowels if underlength?
