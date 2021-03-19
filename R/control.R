@@ -45,7 +45,11 @@ swap_control_site_name <- function(x, quiet = FALSE) {
     )
 
   # Match x to thesaurus
-  tibble::tibble(x = x) %>%
+  # Turn into a factor first so we can distinguish duplicates in the data from
+  # duplicates from an ambiguous match
+  x <- factor(x)
+
+  tibble::tibble(x = levels(x)) %>%
     dplyr::left_join(dplyr::select(thesaurus, .data$canon, .data$exact_match),
                      by = c("x" = "exact_match"), keep = FALSE) %>%
     dplyr::rename(exact_match = .data$canon) %>%
@@ -57,12 +61,20 @@ swap_control_site_name <- function(x, quiet = FALSE) {
     y
 
   # Check for ambiguous matches
-  # Errors here could be a problem with the thesaurus. Check for:
+  # Errors here are probably a problem with the thesaurus. Check for:
   # * Duplicate entries
   # * Variants that only differ by substitution of a non-ASCII character
-  if (length(x) != nrow(y)) {
-    rlang::abort("`x` matched multiple thesaurus entries.",
-                 class = "swap_control_error")
+  if (length(levels(x)) != nrow(y)) {
+    y[duplicated(y$x),] %>%
+      dplyr::group_by(.data$x) %>%
+      dplyr::mutate(canon = glue::glue('"{canon}"')) %>%
+      dplyr::summarise(canon = glue::glue_collapse(.data$canon, ", ")) %>%
+      glue::glue_data('"{x}"  \u2192 {canon}') %>%
+      magrittr::set_names(rep("x", length(.))) %>%
+      c("Elements of `x` matched multiple thesaurus entries:",
+        .,
+        i = "This is probably a problem with swapdata's thesaurus, not your data! Please submit an issue at https://github.com/joeroe/swapdata/issues") %>%
+      rlang::abort(class = "swap_control_error")
   }
 
   # Message for replaced names
@@ -70,7 +82,6 @@ swap_control_site_name <- function(x, quiet = FALSE) {
   if (!quiet) {
     y %>%
       dplyr::filter(.data$x != .data$canon) %>%
-      dplyr::distinct() %>%
       glue::glue_data('"{x}" \u2192 "{canon}"') %>%
       magrittr::set_names(rep("i", length(.))) %>%
       c("Replaced site names:", .) %>%
@@ -80,14 +91,14 @@ swap_control_site_name <- function(x, quiet = FALSE) {
   # Warning for unmatched names
   y %>%
     dplyr::filter(is.na(.data$exact_match), is.na(.data$ascii_match)) %>%
-    dplyr::distinct() %>%
     glue::glue_data('"{x}"') %>%
     magrittr::set_names(rep("x", length(.))) %>%
     c("Site names not matched in thesaurus:", .) %>%
     {if (length(.) > 1) rlang::warn(.)}
 
   # Return
-  dplyr::coalesce(y$canon, y$x)
+  y <- dplyr::coalesce(y$canon, y$x)
+  y[as.numeric(x)]
 }
 
 #' Generate site codes
