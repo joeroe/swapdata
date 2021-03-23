@@ -65,12 +65,19 @@ swap_control_site_name <- function(x, quiet = FALSE) {
     dplyr::mutate(canon = dplyr::coalesce(.data$exact_match, .data$ascii_match)) ->
     y
 
-  # Check for ambiguous matches
+  # Attempt to recover from duplicated matches
+  if (length(levels(x)) != nrow(y)) {
+    y <- dplyr::distinct(y, .data$x, .data$canon, .keep_all = TRUE)
+  }
+
+  # Check for remaining ambiguous matches
   # Errors here are probably a problem with the thesaurus. Check for:
   # * Duplicate entries
-  # * Variants that only differ by substitution of a non-ASCII character
+  # * Variants that are already covered by the plain text matching heuristic
   if (length(levels(x)) != nrow(y)) {
-    y[duplicated(y$x),] %>%
+    dupes <- y[duplicated(y$x) | duplicated(y$x, fromLast = TRUE),]
+
+    dupes %>%
       dplyr::group_by(.data$x) %>%
       dplyr::mutate(canon = glue::glue('"{canon}"')) %>%
       dplyr::summarise(canon = glue::glue_collapse(.data$canon, ", ")) %>%
