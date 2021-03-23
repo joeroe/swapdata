@@ -80,12 +80,19 @@ swap_control_site_name <- function(x, quiet = FALSE) {
   # Message for replaced names
   # TODO: Group messages by match type?
   if (!quiet) {
-    y %>%
-      dplyr::filter(.data$x != .data$canon) %>%
-      glue::glue_data('"{x}" \u2192 "{canon}"') %>%
-      magrittr::set_names(rep("i", length(.))) %>%
-      c("Replaced site names:", .) %>%
-      rlang::inform()
+    replaced <- dplyr::filter(y, .data$x != .data$canon)
+
+    if (nrow(replaced) > 0) {
+      replaced %>%
+        glue::glue_data('"{x}" \u2192 "{canon}"') %>%
+        magrittr::set_names(rep("i", length(.))) %>%
+        c("Replaced site names:", .) %>%
+        rlang::inform()
+    }
+    else {
+      cli::cat_bullet("All site names are canonical.",
+                      bullet = "tick", bullet_col = "green")
+    }
   }
 
   # Warning for unmatched names

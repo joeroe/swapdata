@@ -26,4 +26,5 @@ Imports:
     fuzzyjoin,
     checkmate,
     purrr,
-    utils
+    utils,
+    cli
