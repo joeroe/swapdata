@@ -1,7 +1,6 @@
 canon	variant
 'Ayn Qasiyya	'Ayn Qasiyya
-'Ayn Qasiyya	Ayn Qasiyah
-'Ayn Qasiyya	Ayn Qasiyya
+'Ayn Qasiyya	'Ayn Qasiyah
 Abadah	Abadah
 Abd el Aziz	Abd el Aziz
 Abdul Hosein	Abdul Hosein
@@ -21,9 +20,7 @@ Ahihud	Ahihud
 Ai	Ai
 Ain Abu Nukhayla	Ain Abu Nukhayla
 Ain Ghazal	Ain Ghazal
-Ain Ghazal	'Ain Ghazal
 Ain Ghazal	Ayn Ghazal
-Ain Ghazal	'Ayn Ghazal
 Ain Jammam	Ain Jammam
 Ain Mallaha	Ain Mallaha
 Ain Rahub	Ain Rahub
@@ -75,7 +72,6 @@ Azariq 8	Azariq 8
 Azraq 31	Azraq 31
 Aşıklı Höyük	Aşıklı Höyük
 Ba'ja	Ba'ja
-Ba'ja	Baja
 Baaz	Baaz
 Baaz	Baaz Rockshelter
 Bab edh-Dhra	Bab edh-Dhra
@@ -117,7 +113,6 @@ Can Hasan III	Can Hasan III
 Can Hasan III	Can Hassan III
 Cape Andreas Kastros	Cape Andreas Kastros
 Cape Andreas Kastros	Cape Andreas Kastros, Rizokarpaso
-Cape Andreas Kastros	Cape Andreas-Kastros
 Çayboyu	Çayboyu
 Çayboyu	Cayboyu (Asvan)
 Chagar Bazar	Chagar Bazar
@@ -151,11 +146,10 @@ Dhuweila	Dhuweila
 Dhuweila	Dhuweila 1
 Dhuweila	Dhuweila 2
 Dhuweila	Dhuweilla
+Dja'de	Dja'de
 Dja'de	Dj'ade
 Dja'de	Dj'ade el Mughara
-Dja'de	Dja’de
 Dja'de	Dja'de el Mughara
-Dja'de	Djade
 Dja'de	Tell Dja'de el-Mughara
 Domuztepe	Domuztepe
 Douara Cave	Douara Cave
@@ -206,7 +200,6 @@ Gaz Tavileh	Gaz Tavileh
 Gebel Mishraq	Gebel Mishraq
 Gesher	Gesher
 Gesher Benot Ya'aqov	Gesher Benot Ya'aqov
-Gesher Benot Ya'aqov	Gesher Benot Yaaqov
 Ghuwayr 1	Ghuwayr 1
 Gilat	Gilat
 Gilgal I	Gilgal
@@ -268,10 +261,7 @@ Ikiztepe	Ikiztepe
 Ilipinar	Ilipinar
 Ilipinar	lipinar
 Imiris Gora	Imiris Gora
-Iraq ed-Dubb	'Iraq ed Dubb
 Iraq ed-Dubb	'Iraq ed-Dubb
-Iraq ed-Dubb	Iraq ed Dubb
-Iraq ed-Dubb	Iraq ed-Dubb
 Iraq el-Barud	Iraq el-Barud
 Issaron	Issaron
 Jaffarabad	Jaffarabad
@@ -285,7 +275,6 @@ Jari B	Tal-i Jari B
 Jari B	Tall-e Jari B
 Jarmo	Jarmo
 Jarmo	Qal'at Jarmo
-Jebel Abu Thawwab	Er Rumman
 Jebel Abu Thawwab	Er-Rumman
 Jebel Abu Thawwab	Jebel Abu Thawwab
 Jebel Abu Thawwab	Jebel Abu Thawwb (Er-Rumman)
@@ -361,7 +350,6 @@ Labweh	Labweh
 Lemba Lakkous	Lemba Lakkous
 M'lefaat	M'lefaa
 M'lefaat	M'lefaat
-M'lefaat	Mlefaat
 Maaleh Ramon East	Maaleh Ramon East
 Maaleh Ramon West	Maaleh Ramon West
 Machar	Machar
@@ -534,7 +522,6 @@ Tall-e Mushki	Tall-e Mushki
 Tall-e Mushki	Tall-i Mushki
 Tall-i Bakun A	Tall-i Bakun A
 Tall-i Bakun B	Tall-i Bakun B
-Tall-i Gap	Tall i-Gap
 Tall-i Gap	Tall-i Gap
 Tall-i Ghazir	Tall-i Ghazir
 Tall-i Ghazir	Tll-i Ghazir
@@ -549,9 +536,7 @@ Tel Sheva 36	Tel Sheva 36
 Tel Tsaf	Tel Tsaf
 Teleilat el Ghassul	Teleilat el Ghassul
 Tell 'Abr	Tell 'Abr
-Tell 'Abr	Tell Abr
 Tell 'Abr 3	Tell 'Abr 3
-Tell 'Abr 3	Tell Abr 3
 Tell Ahmar	Tell Ahmar
 Tell Ahmar	Tell Ahmar (Til Barsip)
 Tell Ahmar	Til Barsip
@@ -608,7 +593,6 @@ Tell Ziyadeh	Tell Ziyadeh
 Tell al-Mutesellim	Megiddo (Tell al-Mutesellim)
 Tell al-Mutesellim	Tell al-Mutesellim
 Tell ed-Der	Tell ed-Der
-Tell el-'Oueili	Tell el'Oueili
 Tell el-'Oueili	Tell el-'Oueili
 Tell el-Maffar	Tell el-Maffar
 Tell el-Umeiri	Tell el-Umeiri
@@ -650,7 +634,6 @@ Tepecik	Makaraz Höyük
 Tepecik	Makaraz Tepe
 Tepecik	Tepecik
 Tepecik	Tepecik (Makaraz Tepe)
-Tepecik	Tepecik/Makaraz Tepe
 Toire	Toire
 Tol-e Baši	Tol-e Baši
 Tol-e Nurabad	Tol-e Nurabad
@@ -747,13 +730,10 @@ Yeni Mahalle	Yeni Mahalle
 Yenikapi	Yenikapi
 Yesilova Höyük	Yesilova Höyük
 Yiftah'el	Yiftah'el
-Yiftah'el	Yiftahel
 Yumuktepe	Yumuktepe
-Zahrat adh-Dhra 2	ZAD 2
 Zahrat adh-Dhra 2	ZAD2
 Zahrat adh-Dhra 2	Zahrat adh-Dhra (ZAD 2)
 Zahrat adh-Dhra 2	Zahrat adh-Dhra 2
-Zahrat adh-Dhra 2	Zahrat adh-Dhra' 2
 Zaquma	Zaquma
 Zawi Chemi Shanidar	Zawi Chemi Shanidar
 Zhinvali	Zhinvali

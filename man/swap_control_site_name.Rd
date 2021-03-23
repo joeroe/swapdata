@@ -29,9 +29,11 @@ form.
 Elements of \code{x} are matched to the site name thesaurus using the following
 rules (in order of priority):
 \enumerate{
-\item Exact matches to a variant name in the thesaurus
-\item Matches if non-ASCII characters are substituted for another a character
-(e.g. "Catalhoyuk" → "Çatalhöyük")
+\item \strong{Exact match} to a variant name in the thesaurus
+\item \strong{Plain text match} to a thesaurus variant, allowing for substitution
+or omission of non-ASCII characters (e.g. "Catalhoyuk" → "Çatalhöyük"),
+punctuation (e.g. "Baja" → "Ba'ja"), or whitespace (e.g. "El-Wad" →
+"El Wad").
 }
 
 Ambiguous site names—elements of \code{x} that match multiple thesaurus entries—
