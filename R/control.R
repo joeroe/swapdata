@@ -102,8 +102,7 @@ swap_control_site_name <- function(x, quiet = FALSE) {
         rlang::inform()
     }
     else {
-      cli::cat_bullet("All site names are canonical.",
-                      bullet = "tick", bullet_col = "green")
+      rlang::inform("No site names replaced.")
     }
   }
 
